@@ -6,9 +6,9 @@
       input_type: log
       fields_under_root: <%= scope.lookupvar("fields_under_root") %>
       fields:
-        type: tomcat
-        application: community
-        environment: preproduction
+<% scope.lookupvar("fields").flatten.each do |field| -%>
+        <%= field %>
+<% end -%>
       encoding: plain
 <% if scope.lookupvar("multiline") -%>
       multiline:
