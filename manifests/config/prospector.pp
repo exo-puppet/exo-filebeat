@@ -10,7 +10,7 @@ define filebeat::config::prospector (
 ) {
     # TODO check multiline parameters if multiline=true
 
-  concat::fragment { 'filebeat_prospector_${name}' :
+  concat::fragment { "filebeat_prospector_${name}" :
     target    => "${filebeat::params::config_file}",
     content   => template("filebeat/config_fragment/10_filebeat_prospector_entry.yml.erb"),
     order     => '10'
