@@ -1,0 +1,33 @@
+  ### Logstash as output
+  logstash:
+    hosts: [ <% scope.lookupvar("hosts").flatten.each do |host| -%>"<%= host %>", <%end %>]
+
+    # Number of workers per Logstash host.
+    worker: <%= scope.lookupvar("workers") %>
+
+    # Optional load balance the events between the Logstash hosts
+    #loadbalance: true
+
+    # Optional index name. The default index name depends on the each beat.
+    # For Packetbeat, the default is set to packetbeat, for Topbeat
+    # top topbeat and for Filebeat to filebeat.
+    #index: filebeat
+
+<% if scope.lookupvar("tls") -%>
+    tls:
+      certificate_authorities: [<% scope.lookupvar("ca_authorities").flatten.each do |ca_authority| -%>"<%= ca_authority %>", <%end %>]
+      certificate: "<%= scope.lookupvar("certificate") %>"
+      certificate_key: "<%= scope.lookupvar("certificate_key") %>"
+
+      # Controls whether the client verifies server certificates and host name.
+      # If insecure is set to true, all server host names and certificates will be
+      # accepted. In this mode TLS based connections are susceptible to
+      # man-in-the-middle attacks. Use only for testing.
+      insecure: <%= scope.lookupvar("insecure") %>
+
+      # Configure cipher suites to be used for TLS connections
+      #cipher_suites: []
+
+      # Configure curve types for ECDHE based cipher suites
+      #curve_types: []
+<% end -%>

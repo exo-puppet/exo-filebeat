@@ -1,0 +1,18 @@
+    -
+      paths:
+<% scope.lookupvar("paths").flatten.each do |path| -%>
+        - <%= path %>
+<% end -%>
+      input_type: log
+      fields_under_root: <%= scope.lookupvar("fields_under_root") %>
+      fields:
+        type: tomcat
+        application: community
+        environment: preproduction
+      encoding: plain
+<% if scope.lookupvar("multiline") -%>
+      multiline:
+        pattern: <%= scope.lookupvar("multiline_pattern") %>
+        negate: <%= scope.lookupvar("multiline_pattern_negate") %>
+        match: <%= scope.lookupvar("multiline_match") %>
+<% end -%>
