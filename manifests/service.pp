@@ -4,6 +4,6 @@ class filebeat::service {
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => Exec["install_filebeat_${filebeat::version}"],
+    require    => [Package['filebeat'],Class['filebeat::config'],Class['filebeat::install']],
   }
 }

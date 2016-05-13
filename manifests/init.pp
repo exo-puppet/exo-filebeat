@@ -3,9 +3,9 @@ class filebeat (
   $version,
   $download_dir   = '/srv/download',
   $config         = []
-  ) {
-  include params
-  include install
-  include service
-  include config
+) {
+  include filebeat::params
+  include filebeat::install
+  include filebeat::config
+  include filebeat::service
 }

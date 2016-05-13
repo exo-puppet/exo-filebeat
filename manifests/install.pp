@@ -1,5 +1,9 @@
 class filebeat::install {
-#sudo dpkg -i filebeat_master_amd64.deb
+
+  file { '/var/log/filebeat' :
+    ensure  => directory,
+  }
+
   if $filebeat::installed {
     # Download the archive
     wget::fetch { "download-filebeat-${filebeat::version}":
@@ -11,12 +15,12 @@ class filebeat::install {
 
     case $::operatingsystem {
       /(Ubuntu|Debian)/ : {
-        exec { "install_filebeat_${filebeat::version}" :
-          command           => "dpkg -i ${filebeat::download_dir}/$filebeat::params::download_file",
-          unless            => "test -d ${filebeat::params::install_dir}/logstash-${$filebeat::params::version}",
-          refreshonly       => true,
-          subscribe         => Exec["wget-download-filebeat-${filebeat::version}"]
-        }
+        ensure_packages ( 'filebeat', {
+          'provider'  => 'dpkg',
+          'ensure'    => 'latest',
+          'source'    => "${filebeat::download_dir}/$filebeat::params::download_file",
+          'require'   => Wget::Fetch["download-filebeat-${filebeat::version}"],
+        })
       }
       default           : {
         fail("The ${module_name} module is not supported on ${::operatingsystem}")
@@ -24,7 +28,4 @@ class filebeat::install {
     }
   }
 
-  file { '/var/log/filebeat' :
-    ensure  => directory,
-  }
 }

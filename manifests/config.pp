@@ -1,6 +1,10 @@
 class filebeat::config {
+  file { '/etc/filebeat':
+    ensure => directory,
+  }
   concat { "${filebeat::params::config_file}" :
     notify          => Service["filebeat"],
+    require         => File['/etc/filebeat/']
   }
   concat::fragment{ 'filebeat_header':
     target          => "${filebeat::params::config_file}",
