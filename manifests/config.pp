@@ -1,4 +1,6 @@
-class filebeat::config {
+class filebeat::config inherits filebeat::params {
+  assert_private()
+
   file { '/etc/filebeat':
     ensure => directory,
   }

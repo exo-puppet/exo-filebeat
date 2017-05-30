@@ -9,11 +9,12 @@ define filebeat::config::prospector (
   $multiline_match            = "after",
 ) {
     # TODO check multiline parameters if multiline=true
-
+  include filebeat::params
   concat::fragment { "filebeat_prospector_${name}" :
     target    => "${filebeat::params::config_file}",
     content   => template("filebeat/config_fragment/10_filebeat_prospector_entry.yml.erb"),
-    order     => '10'
+    order     => '10',
+    require   => Class['filebeat', 'filebeat::params'],
   }
 
 }

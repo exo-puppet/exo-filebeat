@@ -3,8 +3,8 @@ class filebeat (
   $version,
   $download_dir   = '/srv/download',
   $config         = []
-) {
-  include filebeat::params
+) inherits filebeat::params {
+
   include filebeat::install
   include filebeat::config
   include filebeat::service
