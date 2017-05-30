@@ -14,7 +14,7 @@ Installation, make sure service is running and will be started at boot time:
 
 Install a certain version:
 
-     class { 'logstashforwarder':
+     class { 'filebeat':
        version => '1.0'
      }
 
