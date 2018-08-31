@@ -10,6 +10,12 @@
         <%= field %>
 <% end -%>
       encoding: plain
+<%- unless @include_lines.empty? -%>
+      include_lines: <%= @include_lines.to_s %>
+<%- end -%>
+<%- unless @exclude_lines.empty? -%>
+      exclude_lines: <%= @exclude_lines.to_s %>
+<%- end -%>
 <% if scope.lookupvar("multiline") -%>
       multiline:
         pattern: <%= scope.lookupvar("multiline_pattern") %>

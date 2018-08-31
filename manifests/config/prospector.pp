@@ -3,6 +3,8 @@ define filebeat::config::prospector (
   $fields_under_root          = true,
   $fields                     = [],
   $encoding                   = "plain",
+  $include_lines              = [],
+  $exclude_lines              = [],
   $multiline                  = false,
   $multiline_pattern          = "",
   $multiline_pattern_negate   = true,
