@@ -1,4 +1,3 @@
 class filebeat::params {
-
-  $config_file      = '/etc/filebeat/filebeat.yml'
+  $config_file = '/etc/filebeat/filebeat.yml'
 }

@@ -12,10 +12,10 @@ class filebeat::install {
   if $filebeat::installed {
     # Download the archive
     wget::fetch { "download-filebeat-${filebeat::version}":
-      source_url        => $download_url,
-      target_directory  => $filebeat::download_dir,
-      target_file       => $download_file,
-      require           => File[$filebeat::download_dir],
+      source_url       => $download_url,
+      target_directory => $filebeat::download_dir,
+      target_file      => $download_file,
+      require          => File[$filebeat::download_dir],
     }
 
     case $::operatingsystem {
@@ -23,7 +23,7 @@ class filebeat::install {
         ensure_packages ( 'filebeat', {
           'provider'  => 'dpkg',
           'ensure'    => 'latest',
-          'source'    => "${filebeat::download_dir}/$download_file",
+          'source'    => "${filebeat::download_dir}/${download_file}",
           'require'   => Wget::Fetch["download-filebeat-${filebeat::version}"],
         })
       }

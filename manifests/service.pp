@@ -1,5 +1,5 @@
 class filebeat::service {
-  service { "filebeat" :
+  service { 'filebeat' :
     ensure     => running,
     enable     => true,
     hasstatus  => true,
@@ -7,3 +7,4 @@ class filebeat::service {
     require    => [Package['filebeat'],Class['filebeat::config'],Class['filebeat::install']],
   }
 }
+

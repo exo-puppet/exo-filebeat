@@ -10,9 +10,9 @@ class filebeat::config::output_logstash (
   # TODO check ssl parameters if tls=true
 
   concat::fragment { 'filebeat_output_logtsash' :
-    target    => "${filebeat::params::config_file}",
-    content   => template("filebeat/config_fragment/20_output_logstash.yml.erb"),
-    order     => '20',
-    require   => Class['::filebeat'],
+    target  => $filebeat::params::config_file,
+    content => template('filebeat/config_fragment/20_output_logstash.yml.erb'),
+    order   => '20',
+    require => Class['::filebeat'],
   }
 }
